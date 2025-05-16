@@ -9,5 +9,5 @@ public class DefaultPlatform : BasePlatform
     private float jumpForce = 8f;
     
     //The vertical force applied to the player on collision.
-    protected override float JumpForce => jumpForce;
+    public override float JumpForce => jumpForce;
 }

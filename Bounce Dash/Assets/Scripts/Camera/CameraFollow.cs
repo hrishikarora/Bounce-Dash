@@ -4,10 +4,6 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private Transform player; // TODO: Replace with event-based reference acquisition.
-    [SerializeField, Tooltip("Time it takes to reach target height. Lower = faster.")]
-    private float smoothTime = 0.5f;
-
-    private Vector3 currentVelocity; // Stores camera's current velocity for smooth damp
 
     private void LateUpdate()
     {
@@ -16,10 +12,10 @@ public class CameraFollow : MonoBehaviour
         if (ShouldFollowPlayer())
         {
             Vector3 targetPosition = new Vector3(transform.position.x, player.position.y, transform.position.z);
-            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref currentVelocity, smoothTime);
+            transform.position = targetPosition;
         }
     }
-
-
+    
+    //As name suggests, it tells whether camera should follow player
     private bool ShouldFollowPlayer() => player.position.y > transform.position.y;
 }

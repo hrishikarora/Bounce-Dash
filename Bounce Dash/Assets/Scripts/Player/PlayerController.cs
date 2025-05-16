@@ -1,3 +1,5 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -29,4 +31,21 @@ public class PlayerController : MonoBehaviour
         velocity.x = horizontalInput * movementSpeed;
         rb.linearVelocity = velocity;
     }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.collider.TryGetComponent<IBounceable>(out var bounceable))
+        {
+            bounceable.OnPlayerBounce(other,rb);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.TryGetComponent<ICollectable>(out var collectable))
+        {
+            collectable.OnCollect(gameObject);
+        }
+    }
+
 }
